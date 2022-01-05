@@ -16,14 +16,17 @@ class RestaurantServiceTest {
     @Test
     public void searching_for_existing_restaurant_should_return_expected_restaurant_object() throws restaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
-        LocalTime openingTime = LocalTime.parse("10:30:00");
-        LocalTime closingTime = LocalTime.parse("22:00:00");
-        restaurant = service.addRestaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        restaurant.addToMenu("Sweet corn soup",119);
-        restaurant.addToMenu("vegetable lasagne",269);
-        Restaurant restaurantTobeFound=service.findRestaurantByName("amelie's cafe");
-        assertEquals(restaurantTobeFound,service.findRestaurantByName("amelie's cafe"));
-
+        try {
+            LocalTime openingTime = LocalTime.parse("10:30:00");
+            LocalTime closingTime = LocalTime.parse("22:00:00");
+            restaurant = service.addRestaurant("Amelie's cafe", "Chennai", openingTime, closingTime);
+            restaurant.addToMenu("Sweet corn soup", 119);
+            restaurant.addToMenu("vegetable lasagne", 269);
+            Restaurant restaurantTobeFound = service.findRestaurantByName("amelie's cafe");
+            assertEquals(restaurantTobeFound, service.findRestaurantByName("amelie's cafe"));
+        }catch(Exception e){
+                fail("error message--"+e.getMessage());
+            }
 
 
     }
@@ -32,13 +35,18 @@ class RestaurantServiceTest {
     @Test
     public void searching_for_non_existing_restaurant_should_throw_exception() throws restaurantNotFoundException {
         //WRITE UNIT TEST CASE HERE
+        try{
         LocalTime openingTime = LocalTime.parse("10:30:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
         restaurant = service.addRestaurant("Amelie's cafe","Chennai",openingTime,closingTime);
         restaurant.addToMenu("Sweet corn soup",119);
         restaurant.addToMenu("vegetable lasagne",269);
         assertThrows(restaurantNotFoundException.class,()->service.findRestaurantByName("Pantry d'or"));
+    }catch(Exception e){
+        fail("error message--"+e.getMessage());
     }
+    }
+
     //<<<<<<<<<<<<<<<<<<<<SEARCHING>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -60,13 +68,15 @@ class RestaurantServiceTest {
 
     @Test
     public void removing_restaurant_that_does_not_exist_should_throw_exception() throws restaurantNotFoundException {
+
         LocalTime openingTime = LocalTime.parse("10:30:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
-        restaurant = service.addRestaurant("Amelie's cafe","Chennai",openingTime,closingTime);
-        restaurant.addToMenu("Sweet corn soup",119);
+        restaurant = service.addRestaurant("Amelie's cafe", "Chennai", openingTime, closingTime);
+        restaurant.addToMenu("Sweet corn soup", 119);
         restaurant.addToMenu("Vegetable lasagne", 269);
 
-        assertThrows(restaurantNotFoundException.class,()->service.removeRestaurant("Pantry d'or"));
+        assertThrows(restaurantNotFoundException.class, () -> service.removeRestaurant("Pantry d'or"));
+
     }
 
     @Test
