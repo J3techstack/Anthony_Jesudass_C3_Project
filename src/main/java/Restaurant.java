@@ -11,22 +11,24 @@ public class Restaurant {
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
         this.name = name;
-
         this.location = location;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
     }
 
     public boolean isRestaurantOpen() {
-        LocalTime now = this.getCurrentTime();
+        LocalTime now = getCurrentTime();
         System.out.println("Current Time :"+now);
-        return now.isAfter(this.openingTime) && now.isBefore(this.closingTime);
+        if((now.isAfter(openingTime)) && (now.isBefore(closingTime))){
+            return true;
+        }
+        return false;
     }
 
     public LocalTime getCurrentTime(){ return  LocalTime.now(); }
 
     public List<Item> getMenu() {
-        return this.menu;
+        return menu;
 
     }
 
