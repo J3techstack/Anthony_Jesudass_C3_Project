@@ -66,4 +66,26 @@ public class Restaurant {
         return name;
     }
 
+    public String findIftemPrice(String itemName) {
+        int matchIndex = -1;
+        for (int i = 0; i < menu.size(); i++)
+
+            if (itemName.equals(menu.get(i))) {
+                matchIndex = i;
+                break;
+            }
+
+        if (matchIndex == -1) throw new RuntimeException("String not found, " + itemName);
+        return menu.get(matchIndex).toString();
+    }
+
+//get item price feature
+    private int findItemPrice(String itemName){
+        for(Item item: menu) {
+            if(item.getName().equals(itemName))
+                return item.getPrice();
+        }
+        return 0;
+    }
+
 }
